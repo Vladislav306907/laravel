@@ -9,7 +9,7 @@
                     <div class="card-body">
                     <form action="{{route('send')}}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <input type="text" value="1" name="id">
+                        <input type="text" value="1" name="id" placeholder="Укажите получателя">
                         <input type="text" name="message">
                         <input type="submit" value="Отправить">
                     </form>
