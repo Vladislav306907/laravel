@@ -22,3 +22,5 @@ Route::post('/send', 'SendController@handle')->name('send');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/graph/', 'GraphController@index');
+Route::get('/graph/get', 'GraphController@get');

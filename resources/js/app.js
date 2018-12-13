@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('translation-component', require('./components/TranslationComponent.vue'));
+Vue.component('graph-component', require('./components/GraphComponent.vue'));
 
 
 /**
