@@ -78653,6 +78653,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 console.log('adwadawd');
 
@@ -78662,7 +78667,9 @@ console.log('adwadawd');
     },
     data: function data() {
         return {
-            data: []
+            data: [],
+            label: '',
+            sale: 100
         };
     },
     mounted: function mounted() {
@@ -78676,9 +78683,19 @@ console.log('adwadawd');
             axios.get('/graph/get').then(function (response) {
                 _this.data = response.data;
             });
+        },
+        sendData: function sendData() {
+            var _this2 = this;
+
+            axios({
+                method: 'get',
+                url: '/graph/get',
+                params: { label: this.label, sale: this.sale }
+            }).then(function (response) {
+                _this2.data = response.data;
+            });
         }
     }
-
 });
 
 /***/ }),
@@ -89478,13 +89495,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("line-chart", {
-    attrs: {
-      "chart-data": _vm.data,
-      height: 100,
-      options: { responsive: true, maintainAspectRation: true }
-    }
-  })
+  return _c(
+    "div",
+    [
+      _c("line-chart", {
+        attrs: {
+          "chart-data": _vm.data,
+          height: 100,
+          options: { responsive: true, maintainAspectRation: true }
+        }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.label,
+            expression: "label"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.label },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.label = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.sale,
+            expression: "sale"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.sale },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.sale = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", on: { click: _vm.sendData } },
+        [_vm._v("Выгрузить")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
