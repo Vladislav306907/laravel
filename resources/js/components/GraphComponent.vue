@@ -1,6 +1,7 @@
 <template>
 <div>
 <line-chart :chart-data="data" :height="100" :options="{responsive: true, maintainAspectRation: true}"></line-chart>
+<input type="checkbox" v-model="realtime">
 <input type="text" v-model="label">
 <input type="text" v-model="sale">
 <button @click="sendData" class="btn btn-primary">Выгрузить</button>
@@ -18,10 +19,15 @@ console.log('adwadawd');
             return {
                 data: [],
                 label: '',
-                sale: 100
+                sale: 100,
+                realtime: false
             }
         },
         mounted() {
+            Echo.channel('graph')
+                .listen('TranslationEvent', (e) => {
+                    this.data = e.result;
+                });
             this.update()
         },
         methods: {
@@ -34,7 +40,7 @@ console.log('adwadawd');
                 axios({
                     method: 'get',
                     url: '/graph/get',
-                    params: {label: this.label, sale: this.sale}
+                    params: {label: this.label, sale: this.sale, realtime: this.realtime}
                 }).then((response) => {
                     this.data = response.data
                 });
